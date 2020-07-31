@@ -54,6 +54,7 @@
     		<!-- <package name="com/ctgu/dao"/>-->
             <mapper resource="com/ctgu/dao/UserDaoMapper.xml"></mapper>
         </mappers>
+            
     ```
 
 3. 编写Bean实体类
@@ -71,7 +72,27 @@ public class User {
     private int delTag;
 
 }
-由于我使用了lombook插件，因此可以省略get/set方法。此处应该额外注意变量名与数据库字段保持相同。
+由于我使用了lombook插件，因此可以省略get/set方法。此处应该额外注意变量名与数据库字段保持相同，如果不相同，则需要使用resultMap。
+    例如：
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <!-- id：设置ResultMap的id -->
+    <resultMap type="User" id="userMap">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="userId" />
+
+        <!-- 定义普通属性 -->
+        <result property="password" column="password" />
+        <result property="userName" column="userName" />
+        <result property="userSex" column="userSex" />
+        <result property="delTag" column="delTag" />
+    </resultMap>
+
+	<!--    查询全部信息-->
+    <select id="getUserList" resultMap="userMap">
+        SELECT * FROM user
+    </select>
 ```
 
 4. 编写查询接口和mapper配置文件
@@ -98,9 +119,32 @@ namespace的值应该是对应接口的全类名
 </mapper>
 
 批量配置时mapper文件应该和interface接口保持同名
+mapper文件中的sql标签中的ID必须与接口类中的方法名完全一致
+接口方法中的参数类型、返回值类型与mapper配置文件中的sql标签的传入、返回值类型要一致。
+
+
 ```
 
-5. 注意事项
+5. 测试类开发
+
+   ```java
+   //加载配置文件
+   InputStream in = Resources.getResourceAsStream("SqlMapConfig.xml");
+   //创建会话工厂
+   SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+   //获取sqlsession对象
+   SqlSession sqlSession = factory.openSession();
+   //获取dao对象
+   UserDaoMapper userDao = sqlSession.getMapper(UserDaoMapper.class);
+   List<User> userList = userDao.getUserList();
+   for(User user :userList){
+       System.out.println(user.getUserName());
+   }
+   //关闭资源
+   sqlSession.close();
+   ```
+
+6. 注意事项
 
 ```java
 1. mybatis核心配置文件应该放置在资源文件中(resources),否则会造成无法加载问题。
@@ -114,5 +158,8 @@ namespace的值应该是对应接口的全类名
       </resource>
     </resources>
    造成原始便是工程不会默认编译src目录下的资源文件，需要手动配置。
+3. parameterType属性那些情况下要写？哪些情况下不用写？
+	如果是基本类型，或者是java自身的引用类型，在mybatis 运行时，会自动的进行匹配，
+	如果是你自己声明的一个类型，因为可能在引入的jar包中有同名的类，所以你需要制定，这个时候的类型是什么
 ```
 
