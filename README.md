@@ -50,8 +50,7 @@
 
     ```java
         <mappers>
-    			<!-- 可以自己配mapper文件的包路径，那么在pom.xml文件中必须指定xml所在资源路径
-                也可以直接配置mapper文件所在具体位置，但对多mapper文件不利，此种方法要求mapper接口名				称和mapper映射文件名称相同，且放在同一个目录中。-->
+    			<!-- 可以自己配mapper文件的包路径，那么在pom.xml文件中必须指定xml所在资源路径也可以直接配置mapper文件所在具体位置，但对多mapper文件不利，此种方法要求mapper接口称和mapper映射文件名称相同，且放在同一个目录中。-->
     		<!-- <package name="com/ctgu/dao"/>-->
             <mapper resource="com/ctgu/dao/UserDaoMapper.xml"></mapper>
         </mappers>

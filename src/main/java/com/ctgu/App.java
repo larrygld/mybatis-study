@@ -26,8 +26,24 @@ public class App
         UserDaoMapper userDao = sqlSession.getMapper(UserDaoMapper.class);
         List<User> userList = userDao.getUserList();
         for(User user :userList){
-            System.out.println(user.getUserName());
+            System.out.println(user.getId() + user.getUserName());
         }
+
+        User user = userDao.getUserById("11111111111");
+        System.out.println(user);
+
+        User user01 = userDao.getUserByIdAndPassword("11111111111", "123");
+        System.out.println(user01);
+
+//        User user02 = new User("12121", "1231", "232", 1, 1);
+//        userDao.addUser(user02);
+//        sqlSession.commit();
+//        user01.setPassword("11111");
+//        userDao.updateUser(user01);
+
+        userDao.delUserById("12121");
+
+        sqlSession.commit();
         //关闭资源
         sqlSession.close();
     }

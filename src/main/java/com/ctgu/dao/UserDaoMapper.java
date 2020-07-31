@@ -1,6 +1,7 @@
 package com.ctgu.dao;
 
 import com.ctgu.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,4 +13,14 @@ import java.util.List;
 public interface UserDaoMapper {
 
     List<User> getUserList();
+
+    User getUserById(@Param("id")String id);
+
+    User getUserByIdAndPassword(@Param("id")String id, @Param("password")String password);
+
+    int addUser(@Param("user")User user);
+
+    int updateUser(@Param("user")User user);
+
+    int delUserById(@Param("id")String id);
 }

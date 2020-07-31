@@ -4,9 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctgu.dao.UserDaoMapper">
 
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <!-- id：设置ResultMap的id -->
+    <resultMap type="User" id="userMap">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="userId" />
+
+        <!-- 定义普通属性 -->
+        <result property="password" column="password" />
+        <result property="userName" column="userName" />
+        <result property="userSex" column="userSex" />
+        <result property="delTag" column="delTag" />
+    </resultMap>
+
 <!--    查询全部信息-->
-    <select id="getUserList" resultType="User">
+    <select id="getUserList" resultMap="userMap">
         SELECT * FROM user
     </select>
+
+    <select id="getUserById" resultMap="userMap">
+        SELECT * FROM user WHERE userId = #{id}
+    </select>
+
+    <select id="getUserByIdAndPassword" resultMap="userMap">
+        SELECT * FROM user WHERE userId = #{id} AND password = #{password}
+    </select>
+
+    <insert id="addUser" parameterType="User">
+        INSERT INTO user VALUE(#{user.id}, #{user.password}, #{user.userName}, #{user.userSex}, null, #{user.delTag})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE user SET password=#{user.password}, userName=#{user.userName} WHERE userId=#{user.id}
+    </update>
+
+    <delete id="delUserById">
+        DELETE from user WHERE userId=#{id}
+    </delete>
 
 </mapper>
