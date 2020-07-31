@@ -8,6 +8,8 @@
 
 <!--    类的别名-->
     <typeAliases>
+<!--        配置单个类名的别名-->
+<!--        <typeAlias type="com.ctgu.pojo.User" alias="User"></typeAlias>-->
 <!--        表示包下所有的类的全限定类名的别名就是类名-->
         <package name="com.ctgu.pojo"/>
     </typeAliases>

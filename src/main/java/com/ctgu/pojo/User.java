@@ -20,5 +20,4 @@ public class User {
     private int userSex;
     private int delTag;
 
-
 }
