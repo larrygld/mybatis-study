@@ -29,11 +29,11 @@ public class App
             System.out.println(user.getId() + user.getUserName());
         }
 
-        User user = userDao.getUserById("11111111111");
-        System.out.println(user);
-
-        User user01 = userDao.getUserByIdAndPassword("11111111111", "123");
-        System.out.println(user01);
+//        User user = userDao.getUserById("11111111111");
+//        System.out.println(user);
+//
+//        User user01 = userDao.getUserByIdAndPassword("11111111111", "123");
+//        System.out.println(user01);
 
 //        User user02 = new User("12121", "1231", "232", 1, 1);
 //        userDao.addUser(user02);
@@ -41,8 +41,11 @@ public class App
 //        user01.setPassword("11111");
 //        userDao.updateUser(user01);
 
-        userDao.delUserById("12121");
-
+//        userDao.delUserById("12121");
+//        User user03 = userDao.searchUser("11111111111", "");
+//        List<User> users = userDao.searchUser("", "");
+//        System.out.println(users);
+        userDao.updateUser01("11111111111", "aa", "");
         sqlSession.commit();
         //关闭资源
         sqlSession.close();

@@ -44,4 +44,29 @@
         DELETE from user WHERE userId=#{id}
     </delete>
 
+    <select id="searchUser" resultMap="userMap">
+        SELECT * FROM user
+        <where>
+            <if test="id != null and id != ''">userId = #{id}</if>
+            <if test="name != null and name != ''">AND userName = #{name}</if>
+        </where>
+
+    </select>
+
+<!--    where标签用于智能去除多余and-->
+
+    <update id="updateUser01" >
+        UPDATE user
+        <set>
+            <if test="name != null and name != ''">
+                userName = #{name},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+        </set>
+        where userId = #{id}
+    </update>
+<!--    set标签用于去除逗号-->
+
 </mapper>

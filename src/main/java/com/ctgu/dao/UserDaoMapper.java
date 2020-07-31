@@ -23,4 +23,10 @@ public interface UserDaoMapper {
     int updateUser(@Param("user")User user);
 
     int delUserById(@Param("id")String id);
+
+    User searchUser(@Param("user")User user);
+
+    List<User> searchUser(@Param("id")String id, @Param("name")String name);
+    //动态sql
+    int updateUser01(@Param("id")String id, @Param("name")String name, @Param("password")String password);
 }
