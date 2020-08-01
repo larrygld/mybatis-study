@@ -69,4 +69,28 @@
     </update>
 <!--    set标签用于去除逗号-->
 
+<!--    foreach批量插入用户-->
+    <insert id="insertUsers" parameterType="User">
+        INSERT INTO user VALUES
+        <foreach collection="users" item="user" separator=",">
+            (#{user.id}, #{user.password}, #{user.userName}, #{user.userSex}, null, #{user.delTag})
+        </foreach>
+    </insert>
+
+    <select id="findUserBylike" resultMap="userMap">
+        <bind name="nameLike" value="'%'+name+'%'"/>
+        SELECT * FROM user WHERE userName LIKE #{nameLike}
+    </select>
+
+<!-- SELECT * FROM user WHERE userName LIKE CONCAT('%', #{name}, '%')-->
+
+
+    <select id="selectByIdSet" resultMap="userMap">
+        SELECT * FROM user WHERE userId IN
+        <foreach collection="idList" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
 </mapper>

@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App 
@@ -45,7 +46,25 @@ public class App
 //        User user03 = userDao.searchUser("11111111111", "");
 //        List<User> users = userDao.searchUser("", "");
 //        System.out.println(users);
-        userDao.updateUser01("11111111111", "aa", "");
+//        userDao.updateUser01("11111111111", "12121", "");
+//        User user01 = new User("2121", "12121", "批量01", 1,1);
+//        User user02 = new User("2122", "12121", "批量02", 1,1);
+//        User user03 = new User("2123", "12121", "批量03", 1,1);
+//        User user04 = new User("2124", "12121", "批量04", 1,1);
+//        List<User> users = new ArrayList<>();
+//        users.add(user01);
+//        users.add(user02);
+//        users.add(user03);
+//        users.add(user04);
+//        userDao.insertUsers(users);
+
+//        List<User> users = userDao.findUserBylike("批量");
+        List<String> idList = new ArrayList<>();
+        idList.add("2121");
+        idList.add("2122");
+        idList.add("2127");
+        idList.add("2123");
+        System.out.println(userDao.selectByIdSet(idList));
         sqlSession.commit();
         //关闭资源
         sqlSession.close();
