@@ -1,5 +1,6 @@
 package com.ctgu;
 
+import com.ctgu.dao.BusinessDaoMapper;
 import com.ctgu.dao.UserDaoMapper;
 import com.ctgu.pojo.User;
 import org.apache.ibatis.io.Resources;
@@ -59,13 +60,21 @@ public class App
 //        userDao.insertUsers(users);
 
 //        List<User> users = userDao.findUserBylike("批量");
-        List<String> idList = new ArrayList<>();
-        idList.add("2121");
-        idList.add("2122");
-        idList.add("2127");
-        idList.add("2123");
-        System.out.println(userDao.selectByIdSet(idList));
-        sqlSession.commit();
+//        List<String> idList = new ArrayList<>();
+//        idList.add("2121");
+//        idList.add("2122");
+//        idList.add("2127");
+//        idList.add("2123");
+//        System.out.println(userDao.selectByIdSet(idList));
+//        sqlSession.commit();
+
+//        User user = userDao.getUserAndAddressByUid("12345671111");
+//        System.out.println(user);
+
+        BusinessDaoMapper businessDao = sqlSession.getMapper(BusinessDaoMapper.class);
+        System.out.println(businessDao.getBusinessAndFoodsById(10001));
+
+
         //关闭资源
         sqlSession.close();
     }

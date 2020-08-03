@@ -6,17 +6,16 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author larry
- * @date 2020/7/31 11:32
+ * @date 2020/8/3 11:38
  * @creed: Talk is cheap, show me the code!
  */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private String id;
-    private String password;
-    private String userName;
-    private int userSex;
-    private int delTag;
-    private Address address;
+public class Address {
+    private int daId;
+    private String contactName;
+    private String address;
+    private String contactTel;
 }

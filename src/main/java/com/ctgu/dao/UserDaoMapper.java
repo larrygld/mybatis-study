@@ -36,4 +36,7 @@ public interface UserDaoMapper {
     List<User> findUserBylike(@Param("name")String name);
     //通过id集合批量查询用户
     List<User> selectByIdSet(@Param("idList")List<String> idList);
+
+    //多表联合查询
+    User getUserAndAddressByUid(@Param("id")String id);
 }

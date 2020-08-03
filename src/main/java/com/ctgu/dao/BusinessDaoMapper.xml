@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgu.dao.BusinessDaoMapper">
+
+    <resultMap id="businessFood" type="Business">
+        <id property="businessId" column="businessId"></id>
+        <result property="businessName" column="businessName"></result>
+        <result property="businessAddress" column="businessAddress"></result>
+        <result property="businessExplain" column="businessExplain"></result>
+<!--        <result property="businessImg" column="businessImg"></result>-->
+        <result property="orderTypeId" column="orderTypeId"></result>
+        <result property="starPrice" column="starPrice"></result>
+        <result property="deliveryPrice" column="deliveryPrice"></result>
+        <result property="remarks" column="remarks"></result>
+        <collection property="foodList" ofType="Food">
+            <id property="foodId" column="foodId"></id>
+            <result property="foodName" column="foodName"></result>
+            <result property="foodExplain" column="foodExplain"></result>
+<!--            <result property="foodImg" column="foodImg"></result>-->
+            <result property="foodPrice" column="foodPrice"></result>
+            <result property="businessId" column="businessId"></result>
+            <result property="remarks" column="remarks"></result>
+        </collection>
+    </resultMap>
+
+<!--    获取菜馆菜品列表-->
+    <select id="getBusinessAndFoodsById" resultMap="businessFood">
+        SELECT * FROM business b, food f WHERE b.`businessId` = f.`businessId` AND f.`businessId` = #{id}
+    </select>
+
+
+<!--    一对一的时候，字段名相同的在ResultMap字段映射的时候可以省略，在一对多的时候则不可以省略，否则得到的是空置-->
+
+
+
+</mapper>

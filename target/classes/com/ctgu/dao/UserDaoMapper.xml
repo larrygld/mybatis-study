@@ -92,5 +92,26 @@
         </foreach>
     </select>
 
+<!--    多表联合查询 一对一-->
+    <select id="getUserAndAddressByUid" resultMap="userAddr">
+        SELECT * FROM user u, deliveryaddress addr WHERE addr.userId = u.userId and u.userId = #{id}
+    </select>
+<!--结果封装成了对象-->
+    <resultMap id="userAddr" type="User">
+        <id property="id" column="userId" />
+        <result property="password" column="password" />
+        <result property="userName" column="userName" />
+        <result property="userSex" column="userSex" />
+        <result property="delTag" column="delTag" />
+
+        <association property="address" javaType="Address">
+            <id property="daId" column="daId"></id>
+            <result property="address" column="address"></result>
+            <result property="contactName" column="contactName"></result>
+            <result property="contactTel" column="contactTel"></result>
+        </association>
+
+    </resultMap>
+
 
 </mapper>
